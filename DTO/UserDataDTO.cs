@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-public class  UserDataDTO
+public class UserDataDTO
 {
     [JsonPropertyName("id")]
-    public int ID { get; set;  }
+    public int ID { get; set; }
     [JsonPropertyName("email")]
     public string Email { get; set; }
     [JsonPropertyName("first_name")]
