@@ -1,7 +1,9 @@
 ﻿using System.Net.Http.Json;
 using System.Text.Json;
+using System.Net;
+using AutoTestsForApplications.DTO;
 
-namespace AutoTestsForApplications
+namespace AutoTestsForApplications.Tests
 {
     public class Tests
     {
@@ -19,7 +21,7 @@ namespace AutoTestsForApplications
         [Test]
         public async Task Test1()
         {
-         using HttpResponseMessage response = await client.GetAsync("users/25");
+         using HttpResponseMessage response = await client.GetAsync("users/2");
         response.EnsureSuccessStatusCode();
         }
 
