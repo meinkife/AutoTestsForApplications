@@ -54,8 +54,7 @@ public class TestsDapper
     [Test]
     public async Task Test3_OrderItemsForUserOrder()
     {
-        // Заказ 5 (юзер 5) содержит товары: ProductId 2, 17, 15, 9
-        const string sql = @"
+             const string sql = @"
             SELECT p.*
             FROM OrderItems oi
             JOIN Products p ON p.Id = oi.ProductId
