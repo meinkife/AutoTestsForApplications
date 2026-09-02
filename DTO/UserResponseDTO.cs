@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text.Json.Serialization;
 
-public class UserResponseDTO
+namespace AutoTestsForApplications.DTO
 {
-    [JsonPropertyName("name")]
-public UserDataDTO Data { get; set; }
+    public class UserResponseDTO
+    {
+        [JsonPropertyName("data")]
+        public UserDataDTO Data { get; set; }
+    }
 }
-
