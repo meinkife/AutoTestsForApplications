@@ -29,7 +29,7 @@ namespace AutoTestsForApplications.Tests.UI_Tests
            
             (await productsPage.IsProductsTitleVisibleAsync()).Should().BeTrue();
 
-
+            
             await productsPage.AddToCartAsync(item1);
             await productsPage.AddToCartAsync(item2);
 
