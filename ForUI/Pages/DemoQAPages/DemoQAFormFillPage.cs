@@ -35,11 +35,8 @@ namespace AutoTestsForApplications.ForUI.Pages
 
         public DemoQAFormFillPage(IPage page)
         {
-
             Page = page;
-
-        }
-       
+        }       
         public async Task FillPersonalDataAsync(string firstName, string lastName, string email, string mobile)
         {
             await FirstNameInput.FillAsync(firstName);
@@ -51,13 +48,12 @@ namespace AutoTestsForApplications.ForUI.Pages
         public async Task SelectGenderAsync(Gender gender)
         {
             await GenderRadio(gender).CheckAsync(new() { Force = true });
-        }
+        }       
         
         public async Task SelectHobbiesAsync(Hobbies hobby)
         {
             await HobbieCheck(hobby).CheckAsync();
-        }
-        
+        }        
 
         public async Task SelectDateOfBirthAsync(string day, string month, string year)
         {
@@ -66,18 +62,15 @@ namespace AutoTestsForApplications.ForUI.Pages
             await YearSelector.SelectOptionAsync(year);
             await DaysOfMonth.GetByText(day, new() { Exact = true }).ClickAsync();
         }
-
         public async Task AddSubjectAsync(string subject)
         {
             await SubjectInput.FillAsync(subject);
             await SubjectInput.PressAsync("Enter");
         }
-
         public async Task FillAddressAsync(string address)
         {
             await CurrentAddressInput.FillAsync(address);
         }
-
         public async Task SelectStateAndCityAsync(string state, string city)
         {
             await SelectStateInput.ClickAsync();
@@ -85,13 +78,11 @@ namespace AutoTestsForApplications.ForUI.Pages
             await SelectCityInput.ClickAsync();
             await Page.GetByText(city, new() { Exact = true }).ClickAsync();
         }
-
         public async Task SelectSubjectAsync(string Subject)
         {
             await SubjectInput.FillAsync(Subject);
             await SubjectInput.PressAsync("Enter");
         }
-
         public async Task FillFormAsync(FormData data)
         {
             await FirstNameInput.FillAsync(data.FirstName);
@@ -104,7 +95,7 @@ namespace AutoTestsForApplications.ForUI.Pages
             await SelectSubjectAsync(data.Subject);
             await CurrentAddressInput.FillAsync(data.CurrentAddress);
             await SelectStateAndCityAsync(data.State, data.City);
-                }
+         }
 
         public async Task Submit()
         {

@@ -1,9 +1,11 @@
-﻿using System.Threading.Tasks;
-using NUnit.Framework;
-using Microsoft.Playwright;
-using AutoTestsForApplications.ForUI.Fixtures;
-using AutoTestsForApplications.ForUI.Pages;
+﻿using AutoTestsForApplications.ForUI.Fixtures;
 using AutoTestsForApplications.ForUI.Models;
+using AutoTestsForApplications.ForUI.Pages;
+using FluentAssertions;
+using FluentAssertions.Execution;
+using Microsoft.Playwright;
+using NUnit.Framework;
+using System.Threading.Tasks;
 
 namespace AutoTestsForApplications.Tests.UI_Tests
 {
@@ -40,23 +42,22 @@ namespace AutoTestsForApplications.Tests.UI_Tests
             await formPage.FillFormAsync(data);
             await formPage.Submit();
 
-            await Assertions.Expect(Page.GetByText("Thanks for submitting the form")).ToBeVisibleAsync();
+            var title = await finalPage.GetResultTitleAsync();
 
-            await Assertions.Expect(finalPage.ResultTitle).ToBeVisibleAsync();
+            using (new AssertionScope())
+            {
+                title.Should().Be("Thanks for submitting the form");
 
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync($"{data.FirstName} {data.LastName}");
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Email);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Mobile);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Gender.ToString());
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Hobby.ToString());
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Days);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Month);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Year);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.Subject);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.CurrentAddress);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.State);
-            await Assertions.Expect(finalPage.ResultTable).ToContainTextAsync(data.City);
-            
+                (await finalPage.GetResultValueAsync("Student Name")).Should().Be($"{data.FirstName} {data.LastName}");
+                (await finalPage.GetResultValueAsync("Student Email")).Should().Be(data.Email);
+                (await finalPage.GetResultValueAsync("Gender")).Should().Be(data.Gender.ToString());
+                (await finalPage.GetResultValueAsync("Mobile")).Should().Be(data.Mobile);
+                (await finalPage.GetResultValueAsync("Date of Birth")).Should().Be($"{data.Days} {data.Month},{data.Year}");
+                (await finalPage.GetResultValueAsync("Subjects")).Should().Be(data.Subject);
+                (await finalPage.GetResultValueAsync("Hobbies")).Should().Be(data.Hobby.ToString());
+                (await finalPage.GetResultValueAsync("Address")).Should().Be(data.CurrentAddress);
+                (await finalPage.GetResultValueAsync("State and City")).Should().Be($"{data.State} {data.City}");
+            }
 
             await finalPage.CloseButtonAsync();
         }
