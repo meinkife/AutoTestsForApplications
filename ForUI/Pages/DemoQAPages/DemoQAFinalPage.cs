@@ -9,10 +9,10 @@ namespace AutoTestsForApplications.ForUI.Pages
     {
         private readonly IPage Page;
 
-    private ILocator ResultTitle => Page.GetByText("Thanks for submitting the form");
-    private ILocator ResultTable => Page.GetByRole(AriaRole.Table);
-    private ILocator ResultValue(string label) => ResultTable.Locator($".//td[text()='{label}']/following-sibling::td");
-    private ILocator CloseButton =>Page.GetByRole(AriaRole.Button, new() { Name = "Close" });
+        private ILocator ResultTitle => Page.GetByText("Thanks for submitting the form");
+        private ILocator ResultTable => Page.GetByRole(AriaRole.Table);
+        private ILocator ResultValue(string label) => ResultTable.Locator($"xpath=.//td[text()='{label}']/following-sibling::td");
+        private ILocator CloseButton =>Page.GetByRole(AriaRole.Button, new() { Name = "Close" });
 
         public DemoQAFinalPage(IPage page)
         {
